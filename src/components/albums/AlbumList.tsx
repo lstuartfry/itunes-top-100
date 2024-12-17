@@ -4,9 +4,9 @@ import AlbumListItem from "./AlbumListItem";
 export default async function AlbumList() {
   const albumsData = await fetchAlbums();
   const renderAlbums = () => {
-    return albumsData.feed.entry.map((album) => (
-      <AlbumListItem key={album.id.label} album={album} />
+    return albumsData.feed.entry.map((album, index) => (
+      <AlbumListItem key={album.id.label} album={album} index={index} />
     ));
   };
-  return <ul className="flex flex-col space-y-6">{renderAlbums()}</ul>;
+  return <ol className="flex flex-col space-y-3">{renderAlbums()}</ol>;
 }
