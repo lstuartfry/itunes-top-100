@@ -8,5 +8,5 @@ export default async function AlbumList() {
       <AlbumListItem key={album.id.label} album={album} />
     ));
   };
-  return <ul>{renderAlbums()}</ul>;
+  return <ul className="flex flex-col space-y-6">{renderAlbums()}</ul>;
 }
