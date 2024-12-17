@@ -2,7 +2,7 @@ export type Album = {
   "im:name": {
     label: string;
   };
-  "im:image:": Array<{ label: string; attributes: { height: string } }>;
+  "im:image": Array<{ label: string; attributes: { height: string } }>;
   "im:price": {
     label: string;
     attributes: { amount: string; currency: string };

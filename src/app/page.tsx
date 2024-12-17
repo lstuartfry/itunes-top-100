@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Suspense } from "react";
-// import { fetchAlbums } from "@/actions";
 import AlbumList from "@/components/albums/AlbumList";
 import AlbumListLoading from "@/components/albums/AlbumListLoading";
 import iTunesLogo from "public/itunes_large.png";
@@ -12,10 +11,9 @@ export default async function HomePage() {
         <Image src={iTunesLogo} alt="iTunes logo" />
         <h1 className="lg:text-5xl text-2xl">iTunes Top 100 Albums</h1>
       </div>
-      {/* <Suspense fallback={<AlbumListLoading />}> */}
-      {/* <AlbumList /> */}
-      <AlbumListLoading />
-      {/* </Suspense> */}
+      <Suspense fallback={<AlbumListLoading />}>
+        <AlbumList />
+      </Suspense>
     </main>
   );
 }
