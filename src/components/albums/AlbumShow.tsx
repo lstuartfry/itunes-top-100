@@ -17,7 +17,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
 
   return (
     <div className="pt-12 flex flex-col lg:justify-center items-center gap-4 lg:gap-12 p-4">
-      <div className="lg:max-w-3xl">
+      <div className="lg:max-w-4xl">
         <div className="flex flex-col lg:flex-row items-center gap-6">
           <Image
             src={albumMetadata.artworkUrl100}
