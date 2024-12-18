@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import AlbumShowLoading from "@/components/albums/AlbumShowLoading";
 import AlbumShow from "@/components/albums/AlbumShow";
 import CaretLeft from "public/caret-left.svg";

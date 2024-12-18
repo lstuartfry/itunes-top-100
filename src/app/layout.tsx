@@ -1,3 +1,4 @@
+import { ViewTransitions } from "next-view-transitions";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -24,15 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`
+    <ViewTransitions>
+      <html lang="en">
+        <body
+          className={`
           ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-      >
-        <div className="bg-gradient-to-br from-slate-50 to-slate-300  h-screen overflow-scroll pb-12">
-          {children}
-        </div>
-      </body>
-    </html>
+        >
+          <div className="bg-gradient-to-br from-slate-50 to-slate-300  h-screen overflow-scroll pb-12">
+            {children}
+          </div>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

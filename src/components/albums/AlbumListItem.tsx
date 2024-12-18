@@ -2,8 +2,7 @@
 
 import type { TopAlbumType } from "@/types";
 import Image from "next/image";
-import Link from "next/link";
-// import StarSVG from "public/star.svg";
+import { Link } from "next-view-transitions";
 
 export default function AlbumListItem({
   album,
@@ -18,9 +17,6 @@ export default function AlbumListItem({
         {index !== undefined && (
           <span className="lg:text-lg font-semibold">{index + 1}</span>
         )}
-        {/* <button onClick={() => console.log("clicked")}>
-          <StarSVG width={32} height={32} />
-        </button> */}
         <Image
           src={album["im:image"][2].label}
           alt={`${album.title.label} album cover`}
