@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchAlbum } from "@/actions";
-import AlbumTrack from "./AlbumTrack";
+import AlbumTrackList from "./AlbumTrackList";
 
 export default async function AlbumShow({ albumId }: { albumId: string }) {
   const { results } = await fetchAlbum(albumId);
@@ -50,17 +50,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
         </div>
       </div>
       <div className="flex flex-col space-y-6 mt-6 lg:mt-12">
-        {albumTracks.map((track, index) => (
-          <Link
-            href={track.trackViewUrl}
-            target="_blank"
-            className="flex gap-3 px-3 py-1 hover:shadow-md hover:bg-gray-300 active:shadow-inner"
-            key={track.trackId}
-          >
-            <span className="font-semibold lg:text-xl">{index + 1}</span>
-            <AlbumTrack track={track} />
-          </Link>
-        ))}
+        <AlbumTrackList tracks={albumTracks} />
       </div>
       <div className="text-sm mt-12">{albumMetadata.copyright}</div>
     </div>
