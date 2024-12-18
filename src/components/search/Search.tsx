@@ -52,7 +52,7 @@ export default function Search({
               />
             </div>
             <div className="flex gap-2 mt-2 p-1 text-white font-semibold">
-              by
+              By
               <Select
                 className="w-full rounded-lg bg-transparent text-red-500"
                 name="searchEntity"
