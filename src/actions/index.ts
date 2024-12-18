@@ -1,6 +1,6 @@
 import type { TopAlbumType, AlbumCollection, AlbumTrack } from "@/types";
 
-type Top100ResponseData = {
+export type Top100ResponseData = {
   feed: {
     entry: TopAlbumType[];
   };

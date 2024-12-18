@@ -54,7 +54,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
             <Link
               href={track.trackViewUrl}
               target="_blank"
-              className="flex gap-3 px-3 py-1 rounded-xl hover:shadow-md hover:bg-gray-300 active:shadow-inner"
+              className="flex gap-3 px-3 py-1 hover:shadow-md hover:bg-gray-300 active:shadow-inner"
               key={track.trackId}
             >
               <span className="font-semibold lg:text-xl">{index + 1}</span>

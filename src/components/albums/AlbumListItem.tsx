@@ -14,7 +14,7 @@ export default function AlbumListItem({
 }) {
   return (
     <Link href={`/album/${album.id.attributes["im:id"]}`}>
-      <li className="flex items-center gap-3 p-3 rounded-xl hover:shadow-md hover:bg-gray-300 active:shadow-inner">
+      <li className="flex items-center gap-3 p-3 hover:shadow-md hover:bg-gray-300 active:shadow-inner">
         {index !== undefined && (
           <span className="lg:text-lg font-semibold">{index + 1}</span>
         )}
