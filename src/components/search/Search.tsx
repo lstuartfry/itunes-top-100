@@ -1,24 +1,37 @@
 "use client";
 
-import { Input } from "@headlessui/react";
+import { Input, Select } from "@headlessui/react";
 import SearchSVG from "public/search.svg";
 import CrossSVG from "public/cross.svg";
 import { useState } from "react";
 
+export type SearchEntity = "artist" | "album";
+
 type Props = {
-  onChange: (value: string) => void;
+  onSearchTermChange: (value: string) => void;
+  onSearchEntityChange: (value: SearchEntity) => void;
+  searchEntity: SearchEntity;
 };
 
-export default function Search({ onChange }: Props) {
+export default function Search({
+  onSearchTermChange,
+  onSearchEntityChange,
+  searchEntity,
+}: Props) {
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    onChange(value);
+    onSearchTermChange(value);
+  };
+
+  const handleEntityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    onSearchEntityChange(value);
   };
 
   const onClear = () => {
-    onChange("");
+    onSearchTermChange("");
     setExpanded(false);
   };
 
@@ -28,17 +41,34 @@ export default function Search({ onChange }: Props) {
         <SearchSVG className="text-white" width={24} height={24} />
       </button>
       {expanded && (
-        <>
-          <Input
-            className="bg-gray-300 text-white placeholder:text-white font-semibold p-1"
-            name="search"
-            onChange={handleChange}
-            placeholder="Search"
-          />
+        <div className="flex gap-4">
+          <div className="flex flex-col">
+            <div className="flex items-center">
+              <Input
+                className="bg-gray-300 text-white placeholder:text-white font-semibold p-1"
+                name="search"
+                onChange={handleTermChange}
+                placeholder="Search"
+              />
+            </div>
+            <div className="flex gap-2 mt-2 p-1 text-white font-semibold">
+              by
+              <Select
+                className="w-full rounded-lg bg-transparent text-red-500"
+                name="searchEntity"
+                aria-label="Search Entity"
+                value={searchEntity}
+                onChange={handleEntityChange}
+              >
+                <option value="artist">Artist</option>
+                <option value="album">Album</option>
+              </Select>
+            </div>
+          </div>
           <button onClick={onClear}>
             <CrossSVG className="text-white" width={24} height={24} />
           </button>
-        </>
+        </div>
       )}
     </div>
   );
