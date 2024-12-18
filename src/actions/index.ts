@@ -14,8 +14,12 @@ export const fetchTopAlbums = async (): Promise<Top100ResponseData> => {
   return data;
 };
 
+/**
+ * The first result from the query will always belong to the album/collection.
+ * The remaining items in the array will belong to individual tracks.
+ */
 type AlbumResponseData = {
-  results: [AlbumCollection, AlbumTrack];
+  results: [AlbumCollection, ...AlbumTrack[]];
 };
 
 export const fetchAlbum = async (
