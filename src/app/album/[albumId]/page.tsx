@@ -9,7 +9,7 @@ export default async function AlbumShowPage({ params }: { params: Params }) {
 
   return (
     <div className="bg-gradient-to-t from-black from-70% to-black/40 min-h-screen pb-12">
-      <div className="m-auto max-w-3xl">
+      <div className="m-auto">
         <Suspense fallback={<AlbumShowLoading />}>
           <AlbumShow albumId={albumId} />
         </Suspense>

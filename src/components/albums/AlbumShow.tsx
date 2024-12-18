@@ -1,6 +1,7 @@
 import { format } from "date-fns";
-import { fetchAlbum } from "@/actions";
+import Link from "next/link";
 import Image from "next/image";
+import { fetchAlbum } from "@/actions";
 import AlbumTrack from "./AlbumTrack";
 
 export default async function AlbumShow({ albumId }: { albumId: string }) {
@@ -26,9 +27,13 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
         }}
       />
       <div className="flex flex-col gap-2 whitespace-nowrap items-center">
-        <span className="lg:text-3xl text-xl font-semibold">
+        <Link
+          href={albumMetadata.collectionViewUrl}
+          target="_blank"
+          className="lg:text-3xl text-xl font-semibold underline"
+        >
           {albumMetadata.collectionName}
-        </span>
+        </Link>
         <span>{albumMetadata.artistName}</span>
         <span>{`${albumMetadata.trackCount} ${
           albumMetadata.trackCount > 1 ? "tracks" : "track"
@@ -37,10 +42,15 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
       </div>
       <div className="bg-black/40 text-white flex flex-col space-y-6 mt-6">
         {albumTracks.map((track, index) => (
-          <div className="flex gap-3" key={track.trackId}>
+          <Link
+            href={track.trackViewUrl}
+            target="_blank"
+            className="flex gap-3 hover:bg-secondary px-3 py-1 rounded-xl"
+            key={track.trackId}
+          >
             <span className="font-semibold lg:text-xl">{index + 1}</span>
             <AlbumTrack track={track} />
-          </div>
+          </Link>
         ))}
       </div>
     </div>
