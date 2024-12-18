@@ -30,7 +30,9 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
           {albumMetadata.collectionName}
         </span>
         <span>{albumMetadata.artistName}</span>
-        <span>{albumMetadata.trackCount} track(s)</span>
+        <span>{`${albumMetadata.trackCount} ${
+          albumMetadata.trackCount > 1 ? "tracks" : "track"
+        }`}</span>
         <span>{formattedReleaseDate}</span>
       </div>
       <div className="bg-black/40 text-white flex flex-col space-y-6 mt-6">
