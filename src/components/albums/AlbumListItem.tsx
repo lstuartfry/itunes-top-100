@@ -14,7 +14,7 @@ export default function AlbumListItem({
 }) {
   return (
     <Link href={`/album/${album.id.attributes["im:id"]}`}>
-      <li className="flex items-center gap-3 p-3 rounded-xl hover:shadow-md hover:bg-main/20 active:shadow-inner">
+      <li className="flex items-center gap-3 p-3 rounded-xl hover:shadow-md hover:bg-gray-300 active:shadow-inner">
         {index !== undefined && (
           <span className="lg:text-lg font-semibold">{index + 1}</span>
         )}
@@ -24,8 +24,8 @@ export default function AlbumListItem({
         <Image
           src={album["im:image"][2].label}
           alt={`${album.title.label} album cover`}
-          height={170}
-          width={170}
+          height={100}
+          width={100}
           style={{
             borderRadius: "12px",
           }}
