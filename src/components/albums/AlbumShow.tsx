@@ -6,6 +6,7 @@ import AlbumTrack from "./AlbumTrack";
 
 export default async function AlbumShow({ albumId }: { albumId: string }) {
   const { results } = await fetchAlbum(albumId);
+
   // the first result from the query will always belong to the album/collection
   const [albumMetadata, ...albumTracks] = results;
 
@@ -62,6 +63,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
             </Link>
           ))}
         </div>
+        <div className="text-sm mt-12">{albumMetadata.copyright}</div>
       </div>
     </div>
   );

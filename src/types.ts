@@ -31,6 +31,7 @@ export type AlbumCollection = {
   trackCount: number;
   releaseDate: string;
   primaryGenreName: string;
+  copyright: string;
 };
 
 export type AlbumTrack = {
