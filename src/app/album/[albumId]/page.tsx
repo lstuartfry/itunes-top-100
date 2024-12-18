@@ -8,8 +8,10 @@ export default async function AlbumShowPage({ params }: { params: Params }) {
   const { albumId } = await params;
 
   return (
-    <Suspense fallback={<AlbumShowLoading />}>
-      <AlbumShow albumId={albumId} />
-    </Suspense>
+    <div className="bg-gradient-to-t from-black from-70% to-black/40 min-h-screen pb-12">
+      <Suspense fallback={<AlbumShowLoading />}>
+        <AlbumShow albumId={albumId} />
+      </Suspense>
+    </div>
   );
 }
