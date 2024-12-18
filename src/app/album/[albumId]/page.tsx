@@ -10,7 +10,7 @@ export default async function AlbumShowPage({ params }: { params: Params }) {
   const { albumId } = await params;
 
   return (
-    <div className="m-auto">
+    <div className="pt-12 flex flex-col lg:justify-center items-center gap-4 lg:gap-12 p-4">
       <Suspense fallback={<AlbumShowLoading />}>
         <div className="absolute top-2 left-2 lg:top-6">
           <Link href={"/"}>

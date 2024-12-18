@@ -17,54 +17,52 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
   );
 
   return (
-    <div className="pt-12 flex flex-col lg:justify-center items-center gap-4 lg:gap-12 p-4">
-      <div className="lg:max-w-4xl">
-        <div className="flex flex-col lg:flex-row items-center gap-6">
-          <Image
-            src={albumMetadata.artworkUrl100}
-            height={200}
-            width={200}
-            alt={`${albumMetadata.collectionName} album cover`}
-            style={{
-              borderRadius: "12px",
-            }}
-          />
-          <div className="flex flex-col gap-2 whitespace-nowrap items-center lg:items-start text-gray-600 lg:text-xl">
-            <Link
-              href={albumMetadata.collectionViewUrl}
-              target="_blank"
-              className="lg:text-3xl text-xl font-semibold underline"
-            >
-              {albumMetadata.collectionName}
-            </Link>
-            <span className="text-red-500 font-semibold">
-              {albumMetadata.artistName}
+    <div className="lg:max-w-4xl">
+      <div className="flex flex-col lg:flex-row items-center gap-6">
+        <Image
+          src={albumMetadata.artworkUrl100}
+          height={200}
+          width={200}
+          alt={`${albumMetadata.collectionName} album cover`}
+          style={{
+            borderRadius: "12px",
+          }}
+        />
+        <div className="flex flex-col gap-2 whitespace-nowrap items-center lg:items-start text-gray-600 lg:text-xl">
+          <Link
+            href={albumMetadata.collectionViewUrl}
+            target="_blank"
+            className="lg:text-3xl text-xl font-semibold underline"
+          >
+            {albumMetadata.collectionName}
+          </Link>
+          <span className="text-red-500 font-semibold">
+            {albumMetadata.artistName}
+          </span>
+          <div className="flex flex-col mt-3 items-center lg:items-start lg:text-base text-sm">
+            <span>
+              {albumMetadata.primaryGenreName} - {formattedReleaseDate}
             </span>
-            <div className="flex flex-col mt-3 items-center lg:items-start lg:text-base text-sm">
-              <span>
-                {albumMetadata.primaryGenreName} - {formattedReleaseDate}
-              </span>
-              <span>{`${albumMetadata.trackCount} ${
-                albumMetadata.trackCount > 1 ? "tracks" : "track"
-              }`}</span>
-            </div>
+            <span>{`${albumMetadata.trackCount} ${
+              albumMetadata.trackCount > 1 ? "tracks" : "track"
+            }`}</span>
           </div>
         </div>
-        <div className="flex flex-col space-y-6 mt-6 lg:mt-12">
-          {albumTracks.map((track, index) => (
-            <Link
-              href={track.trackViewUrl}
-              target="_blank"
-              className="flex gap-3 px-3 py-1 hover:shadow-md hover:bg-gray-300 active:shadow-inner"
-              key={track.trackId}
-            >
-              <span className="font-semibold lg:text-xl">{index + 1}</span>
-              <AlbumTrack track={track} />
-            </Link>
-          ))}
-        </div>
-        <div className="text-sm mt-12">{albumMetadata.copyright}</div>
       </div>
+      <div className="flex flex-col space-y-6 mt-6 lg:mt-12">
+        {albumTracks.map((track, index) => (
+          <Link
+            href={track.trackViewUrl}
+            target="_blank"
+            className="flex gap-3 px-3 py-1 hover:shadow-md hover:bg-gray-300 active:shadow-inner"
+            key={track.trackId}
+          >
+            <span className="font-semibold lg:text-xl">{index + 1}</span>
+            <AlbumTrack track={track} />
+          </Link>
+        ))}
+      </div>
+      <div className="text-sm mt-12">{albumMetadata.copyright}</div>
     </div>
   );
 }

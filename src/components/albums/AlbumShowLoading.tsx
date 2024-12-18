@@ -4,22 +4,23 @@ export default function AlbumShowLoading() {
   return (
     <ContentLoader
       speed={2}
-      width={390}
+      width={300}
       height={600}
-      viewBox="0 0 390 600"
-      backgroundColor="#E7E5E4"
-      foregroundColor="#D6D3D1"
+      viewBox="0 0 300 600"
+      backgroundColor="#E5E7EB"
+      foregroundColor="#D1D5DB"
     >
-      <rect x="10" y="8" rx="0" ry="0" width="50" height="50" />
-      <rect x="9" y="117" rx="0" ry="0" width="50" height="50" />
-      <rect x="9" y="229" rx="0" ry="0" width="50" height="50" />
-      <rect x="8" y="339" rx="0" ry="0" width="50" height="50" />
-      <rect x="77" y="41" rx="0" ry="0" width="288" height="16" />
-      <rect x="83" y="147" rx="0" ry="0" width="288" height="16" />
-      <rect x="84" y="259" rx="0" ry="0" width="288" height="16" />
-      <rect x="87" y="370" rx="0" ry="0" width="288" height="16" />
-      <rect x="9" y="444" rx="0" ry="0" width="50" height="50" />
-      <rect x="88" y="470" rx="0" ry="0" width="288" height="16" />
+      <rect x="4" y="8" rx="0" ry="0" width="100" height="100" />
+      <rect x="124" y="17" rx="0" ry="0" width="197" height="19" />
+      <rect x="125" y="46" rx="0" ry="0" width="187" height="19" />
+      <rect x="6" y="155" rx="0" ry="0" width="293" height="21" />
+      <rect x="6" y="185" rx="0" ry="0" width="126" height="21" />
+      <rect x="4" y="329" rx="0" ry="0" width="293" height="21" />
+      <rect x="5" y="228" rx="0" ry="0" width="293" height="21" />
+      <rect x="7" y="262" rx="0" ry="0" width="126" height="21" />
+      <rect x="4" y="365" rx="0" ry="0" width="126" height="21" />
+      <rect x="2" y="415" rx="0" ry="0" width="293" height="21" />
+      <rect x="4" y="449" rx="0" ry="0" width="126" height="21" />
     </ContentLoader>
   );
 }
