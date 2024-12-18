@@ -30,6 +30,7 @@ export type AlbumCollection = {
   artworkUrl100: string;
   trackCount: number;
   releaseDate: string;
+  primaryGenreName: string;
 };
 
 export type AlbumTrack = {
