@@ -18,7 +18,9 @@ export default function useAudio() {
     const audioRefCopy = audioRef;
     return () => {
       // turn off the audio once the album show page unmounts
-      audioRefCopy.current!.pause();
+      if (audioRefCopy.current !== null) {
+        audioRefCopy.current.pause();
+      }
     };
   }, []);
 
