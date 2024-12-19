@@ -25,7 +25,7 @@ export default function FilteredAlbumList({ data }: Props) {
 
   const filteredAlbums = useMemo(() => {
     return (
-      <ol className="flex flex-col lg:w-3xl m-auto">
+      <ol className="flex flex-col lg:w-3xl">
         {data.feed.entry
           .filter((album) => {
             if (searchEntity === "artist") {
