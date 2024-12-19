@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import { type AlbumTrack as AlbumTrackType } from "@/types";
 import AlbumTrack from "./AlbumTrack";
 import PlaySVG from "public/play.svg";
 import PauseSVG from "public/pause.svg";
+import useAudio from "@/hooks/useAudio";
 
 // Motion variants for the container element.
 // This will allow the parent element to stagger the rendering of each track in the album's list.
@@ -37,65 +38,51 @@ export default function AlbumTrackList({
 }: {
   tracks: AlbumTrackType[];
 }) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [audioSource, setAudioSource] = useState<string | undefined>();
-
-  const toggleTrackPreview = useCallback((previewUrl: string) => {
-    if (audioRef.current) {
-      // if a track is playing, but a new track preview is selected,
-      // play the new track
-      const shouldPlayNewTrack = audioRef.current.src !== previewUrl;
-      if (shouldPlayNewTrack) {
-        audioRef.current.pause();
-        audioRef.current.src = previewUrl;
-        setAudioSource(previewUrl);
-        audioRef.current.play();
-        return;
-      }
-
-      // if the current track is being toggled, pause playback
-      const shouldPause = audioRef.current.src === previewUrl;
-      if (shouldPause) {
-        audioRef.current.pause();
-        return;
-      }
-    }
-  }, []);
+  const { audioRef, audioSource, toggleTrackPreview } = useAudio();
 
   const renderTracks = useMemo(() => {
-    return tracks.map((track, index) => (
-      <motion.div key={track.trackId} variants={item}>
-        <div className="flex hover:shadow-md hover:bg-gray-300 group py-3">
-          <div className="w-12 flex">
-            <button
-              className={`self-center group-hover:block ${
-                audioSource === track.previewUrl ? "block" : "hidden"
-              }`}
-              onClick={() => toggleTrackPreview(track.previewUrl)}
-            >
-              {audioSource === track.previewUrl ? (
-                <PauseSVG width={24} height={24} />
-              ) : (
-                <PlaySVG width={24} height={24} />
-              )}
-            </button>
-            <span
-              className={`font-semibold lg:text-xl ${
-                audioSource !== track.previewUrl ? "block" : "hidden"
-              } group-hover:hidden`}
-            >
-              {index + 1}
-            </span>
+    return tracks.map((track, index) => {
+      const isActiveTrack = audioSource === track.previewUrl;
+      return (
+        <motion.div key={track.trackId} variants={item}>
+          <div
+            className={`flex hover:shadow-md hover:bg-gray-300 group py-3 ${
+              isActiveTrack
+                ? "bg-red-500 text-white hover:bg-red-600"
+                : "hover:bg-gray-300"
+            }`}
+          >
+            <div className="w-12 flex justify-center">
+              <button
+                className={`self-center group-hover:block ${
+                  isActiveTrack ? "block" : "hidden"
+                }`}
+                onClick={() => toggleTrackPreview(track.previewUrl)}
+              >
+                {isActiveTrack ? (
+                  <PauseSVG className="text-white" width={24} height={24} />
+                ) : (
+                  <PlaySVG width={24} height={24} />
+                )}
+              </button>
+              <span
+                className={`font-semibold lg:text-xl ${
+                  !isActiveTrack ? "block" : "hidden"
+                } group-hover:hidden`}
+              >
+                {index + 1}
+              </span>
+            </div>
+            <AlbumTrack track={track} />
           </div>
-          <AlbumTrack track={track} />
-        </div>
-      </motion.div>
-    ));
+        </motion.div>
+      );
+    });
   }, [audioSource, toggleTrackPreview, tracks]);
 
   return (
     <>
-      <audio ref={audioRef}>
+      <audio ref={audioRef} id="audio">
         <source type="audio/mpeg" />
       </audio>
       <motion.div
