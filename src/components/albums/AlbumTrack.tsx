@@ -11,7 +11,7 @@ export default function AlbumTrack({ track }: Props) {
       <Link
         href={track.trackViewUrl}
         target="_blank"
-        className="flex flex-col gap-3"
+        className="flex flex-col gap-3 w-full"
       >
         <div className="font-semibold">{track.trackName}</div>
         <div className="text-xs">{track.artistName}</div>

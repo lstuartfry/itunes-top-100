@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { type AlbumTrack as AlbumTrackType } from "@/types";
 import AlbumTrack from "./AlbumTrack";
+import PlaySVG from "public/play.svg";
+import PauseSVG from "public/pause.svg";
 
 // Motion variants for the container element.
 // This will allow the parent element to stagger the rendering of each track in the album's list.
@@ -35,19 +37,61 @@ export default function AlbumTrackList({
 }: {
   tracks: AlbumTrackType[];
 }) {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioSource, setAudioSource] = useState<string | undefined>();
 
-  const toggleTrackPreview = (previewUrl: string) => {
-    const shouldPlay = !isPlaying;
-    setIsPlaying((s) => !s);
-    if (shouldPlay) {
-      audioRef.current.src = previewUrl;
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
+  const toggleTrackPreview = useCallback((previewUrl: string) => {
+    if (audioRef.current) {
+      // if a track is playing, but a new track preview is selected,
+      // play the new track
+      const shouldPlayNewTrack = audioRef.current.src !== previewUrl;
+      if (shouldPlayNewTrack) {
+        audioRef.current.pause();
+        audioRef.current.src = previewUrl;
+        setAudioSource(previewUrl);
+        audioRef.current.play();
+        return;
+      }
+
+      // if the current track is being toggled, pause playback
+      const shouldPause = audioRef.current.src === previewUrl;
+      if (shouldPause) {
+        audioRef.current.pause();
+        return;
+      }
     }
-  };
+  }, []);
+
+  const renderTracks = useMemo(() => {
+    return tracks.map((track, index) => (
+      <motion.div key={track.trackId} variants={item}>
+        <div className="flex hover:shadow-md hover:bg-gray-300 group py-3">
+          <div className="w-12 flex">
+            <button
+              className={`self-center group-hover:block ${
+                audioSource === track.previewUrl ? "block" : "hidden"
+              }`}
+              onClick={() => toggleTrackPreview(track.previewUrl)}
+            >
+              {audioSource === track.previewUrl ? (
+                <PauseSVG width={24} height={24} />
+              ) : (
+                <PlaySVG width={24} height={24} />
+              )}
+            </button>
+            <span
+              className={`font-semibold lg:text-xl ${
+                audioSource !== track.previewUrl ? "block" : "hidden"
+              } group-hover:hidden`}
+            >
+              {index + 1}
+            </span>
+          </div>
+          <AlbumTrack track={track} />
+        </div>
+      </motion.div>
+    ));
+  }, [audioSource, toggleTrackPreview, tracks]);
 
   return (
     <>
@@ -58,19 +102,9 @@ export default function AlbumTrackList({
         variants={container}
         initial="hidden"
         animate="show"
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-2"
       >
-        {tracks.map((track, index) => (
-          <motion.div key={track.trackId} variants={item}>
-            <div className="flex gap-12 hover:shadow-md hover:bg-gray-300">
-              {/* <button onClick={() => toggleTrackPreview(track.previewUrl)}>
-                preview audio
-              </button> */}
-              <span className="font-semibold lg:text-xl">{index + 1}</span>
-              <AlbumTrack track={track} />
-            </div>
-          </motion.div>
-        ))}
+        {renderTracks}
       </motion.div>
     </>
   );
