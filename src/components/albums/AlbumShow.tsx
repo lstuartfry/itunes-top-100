@@ -17,7 +17,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
   );
 
   return (
-    <div className="lg:w-4/5 w-3/4">
+    <div className="lg:w-4/5">
       <div className="flex flex-col lg:flex-row items-center gap-6">
         <Image
           src={albumMetadata.artworkUrl100}
@@ -32,11 +32,11 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
           <Link
             href={albumMetadata.collectionViewUrl}
             target="_blank"
-            className="lg:text-3xl text-xl font-semibold underline"
+            className="lg:text-3xl text-xl font-semibold underline text-center"
           >
             {albumMetadata.collectionName}
           </Link>
-          <span className="text-red-500 font-semibold">
+          <span className="text-red-500 font-semibold text-center">
             {albumMetadata.artistName}
           </span>
           <div className="flex flex-col mt-3 items-center lg:items-start lg:text-base text-sm">
