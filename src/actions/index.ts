@@ -6,6 +6,10 @@ export type Top100ResponseData = {
   };
 };
 
+/**
+ * Fetches top 100 albums from iTunes.
+ * NOTE - iTunes API seems to only return top 80 results.
+ */
 export const fetchTopAlbums = async (): Promise<Top100ResponseData> => {
   const response = await fetch(
     "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
@@ -23,11 +27,16 @@ export type AlbumResponseData = {
   results: [AlbumCollection, ...AlbumTrack[]];
 };
 
+/**
+ * Fetches single album metadata.
+ * Revalidates at most every hour.
+ */
 export const fetchAlbum = async (
   albumId: string
 ): Promise<AlbumResponseData> => {
   const response = await fetch(
-    `https://itunes.apple.com/lookup?id=${albumId}&entity=song`
+    `https://itunes.apple.com/lookup?id=${albumId}&entity=song`,
+    { next: { revalidate: 3600 } }
   );
   const data: AlbumResponseData = await response.json();
   return data;
