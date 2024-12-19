@@ -2,6 +2,23 @@ export type TopAlbumType = {
   "im:name": {
     label: string;
   };
+  "im:itemCount": { label: string };
+  "im:price": {
+    label: string;
+    attributes: { amount: string; currency: string };
+  };
+  "im:contentType": {
+    "im:contentType": { attributes: { term: string; label: string } };
+    attributes: { term: string; label: string };
+  };
+  rights: { label: string };
+  link: {
+    attributes: {
+      rel: string;
+      type: string;
+      href: string;
+    };
+  };
   "im:image": Array<{ label: string; attributes: { height: string } }>;
   title: { label: string };
   id: {
@@ -16,22 +33,40 @@ export type TopAlbumType = {
       href: string;
     };
   };
+  category: {
+    attributes: {
+      "im:id": string;
+      term: string;
+      scheme: string;
+      label: string;
+    };
+  };
+  "im:releaseDate": {
+    label: string;
+    attributes: { label: string };
+  };
 };
 
 export type AlbumCollection = {
-  wrapperType: "collecton";
-  collectionType: "Album";
+  wrapperType: string;
+  collectionType: string;
   artistViewUrl: string;
   collectionViewUrl: string;
   artistId: number;
   collectionId: number;
   artistName: string;
   collectionName: string;
+  collectionCensoredName: string;
+  artworkUrl60: string;
   artworkUrl100: string;
   trackCount: number;
   releaseDate: string;
   primaryGenreName: string;
   copyright: string;
+  collectionPrice: number;
+  collectionExplicitness: string;
+  country: string;
+  currency: string;
 };
 
 export type AlbumTrack = {
@@ -42,23 +77,25 @@ export type AlbumTrack = {
   trackId: number;
   artistName: string;
   collectionName: string;
+  collectionCensoredName: string;
   trackName: string;
+  trackCensoredName: string;
   collectionArtistName: string;
   artistViewUrl: string;
   collectionViewUrl: string;
   trackViewUrl: string;
   previewUrl: string;
-  // "artworkUrl30": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3b/c3/80/3bc38021-d755-d689-43d2-775c6071b226/24UM1IM07582.rgb.jpg/30x30bb.jpg",
-  // "artworkUrl60": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3b/c3/80/3bc38021-d755-d689-43d2-775c6071b226/24UM1IM07582.rgb.jpg/60x60bb.jpg",
-  artworkUrl100: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/3b/c3/80/3bc38021-d755-d689-43d2-775c6071b226/24UM1IM07582.rgb.jpg/100x100bb.jpg";
+  artworkUrl30: string;
+  artworkUrl60: string;
+  artworkUrl100: string;
   collectionPrice: number;
   trackPrice: number;
   releaseDate: string;
-  // "collectionExplicitness": "notExplicit",
-  // "trackExplicitness": "notExplicit",
-  // "discCount": 1,
-  // "discNumber": 1,
-  // "trackCount": 12,
+  collectionExplicitness: string;
+  trackExplicitness: string;
+  discCount: number;
+  discNumber: number;
+  trackCount: number;
   trackNumber: number;
   trackTimeMillis: number;
   country: string;

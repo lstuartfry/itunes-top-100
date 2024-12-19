@@ -39,7 +39,7 @@ export default function Search({
         !expanded && "hover:border-white"
       }`}
     >
-      <button onClick={() => setExpanded(true)}>
+      <button data-testid="search-button" onClick={() => setExpanded(true)}>
         <SearchSVG className="text-white" width={24} height={24} />
       </button>
       {expanded && (
