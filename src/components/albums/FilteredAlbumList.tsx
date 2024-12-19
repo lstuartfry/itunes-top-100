@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { type Top100ResponseData } from "@/actions";
 import { debounce } from "@/utils";
 import AlbumListItem from "./AlbumListItem";
-import Search, { type SearchEntity } from "../search/Search";
+import Search from "../search/Search";
 
 type Props = {
   data: Top100ResponseData;
@@ -12,14 +12,14 @@ type Props = {
 
 export default function FilteredAlbumList({ data }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchEntity, setSearchEntity] = useState("artist" as SearchEntity);
+  const [searchEntity, setSearchEntity] = useState("artist");
 
   const onSearchTermChange = debounce((value: string) => {
     const valueToLowerCase = value.toLowerCase();
     setSearchTerm(valueToLowerCase);
   }, 200);
 
-  const onSearchEntitiyChange = debounce((value: SearchEntity) => {
+  const onSearchEntitiyChange = debounce((value: string) => {
     setSearchEntity(value);
   }, 200);
 

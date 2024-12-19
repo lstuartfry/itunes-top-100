@@ -5,12 +5,10 @@ import SearchSVG from "public/search.svg";
 import CrossSVG from "public/cross.svg";
 import { useState } from "react";
 
-export type SearchEntity = "artist" | "album";
-
 type Props = {
   onSearchTermChange: (value: string) => void;
-  onSearchEntityChange: (value: SearchEntity) => void;
-  searchEntity: SearchEntity;
+  onSearchEntityChange: (value: string) => void;
+  searchEntity: string;
 };
 
 export default function Search({
@@ -36,7 +34,11 @@ export default function Search({
   };
 
   return (
-    <div className="flex justify-center cursor-pointer gap-2 p-1 px-2 lg:p-3 bg-gray-300 rounded-full shadow-md items-center border-transparent border-2 hover:border-white min-w-[64px]">
+    <div
+      className={`flex transition-all justify-center cursor-pointer gap-2 p-1 px-2 lg:p-3 bg-gray-300 rounded-full shadow-md items-center border-transparent border-2 min-w-[64px] ${
+        !expanded && "hover:border-white"
+      }`}
+    >
       <button onClick={() => setExpanded(true)}>
         <SearchSVG className="text-white" width={24} height={24} />
       </button>
@@ -45,6 +47,7 @@ export default function Search({
           <div className="flex flex-col">
             <div className="flex items-center">
               <Input
+                autoFocus
                 className="bg-gray-300 text-white placeholder:text-white font-semibold p-1"
                 name="search"
                 onChange={handleTermChange}
