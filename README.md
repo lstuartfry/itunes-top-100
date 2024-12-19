@@ -17,6 +17,7 @@ I built this application using [Next.js](https://nextjs.org/). I wanted to take 
 - The homepage displays a list of the top 100 albums currently on iTunes.
 - The list can be filtered by search term against either the album artist or album name.
 - Each album is selectable, and once selected, a detailed view of the album and track list can be accessed.
+- Request caching - after initial load of the album list and album data, the fetch requests for these resources will be cached. This is most noticeable when navigating back and forth between the album list and albums that have already been selected - the pages load almost instantly.
 - Most importantly, **each track's audio can be previewed!**
 
 ## Animations
