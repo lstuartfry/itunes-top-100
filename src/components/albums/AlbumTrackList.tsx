@@ -46,7 +46,7 @@ export default function AlbumTrackList({
       return (
         <motion.div key={track.trackId} variants={item}>
           <div
-            className={`flex hover:shadow-md hover:bg-gray-300 group py-3 ${
+            className={`flex hover:shadow-md hover:bg-gray-300 group py-1 ${
               isActiveTrack
                 ? "bg-red-500 text-white hover:bg-red-600"
                 : "hover:bg-gray-300"

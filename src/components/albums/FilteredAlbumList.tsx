@@ -9,7 +9,10 @@ import Search from "../search/Search";
 type Props = {
   data: Top100ResponseData;
 };
-
+/**
+ * Takes the raw response from the GET request to itunes for the top 100 albums,
+ * and filters them based on the existing search term and search entity (if they exist).
+ */
 export default function FilteredAlbumList({ data }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchEntity, setSearchEntity] = useState("artist");

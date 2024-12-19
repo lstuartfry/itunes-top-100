@@ -49,7 +49,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col space-y-6 mt-6 lg:mt-12">
+      <div className="flex flex-col space-y-6">
         <AlbumTrackList tracks={albumTracks} />
       </div>
       <div className="text-sm mt-12">{albumMetadata.copyright}</div>
