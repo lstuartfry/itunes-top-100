@@ -32,7 +32,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
           <Link
             href={albumMetadata.collectionViewUrl}
             target="_blank"
-            className="lg:text-3xl text-xl font-semibold underline text-center"
+            className="lg:text-3xl text-xl font-semibold underline text-center lg:text-left"
           >
             {albumMetadata.collectionName}
           </Link>
