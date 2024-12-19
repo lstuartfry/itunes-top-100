@@ -28,7 +28,7 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
             borderRadius: "12px",
           }}
         />
-        <div className="flex flex-col gap-2 whitespace-nowrap items-center lg:items-start text-gray-600 lg:text-xl">
+        <div className="flex flex-col gap-2 items-center lg:items-start text-gray-600 lg:text-xl">
           <Link
             href={albumMetadata.collectionViewUrl}
             target="_blank"
