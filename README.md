@@ -31,6 +31,11 @@ I used [Playwright](https://playwright.dev/) to write an end to end test for the
 
 ## Screenshots
 
+<img width="1361" alt="Screenshot 2024-12-19 at 3 06 47 PM" src="https://github.com/user-attachments/assets/556556f4-32ec-48d6-8701-23d0f51a7eba" />
+
+<img width="1359" alt="Screenshot 2024-12-19 at 3 06 57 PM" src="https://github.com/user-attachments/assets/da4237b9-4079-4da1-8871-f57b904fa44b" />
+
+
 ## Running the application
 
 First, run the development server:
