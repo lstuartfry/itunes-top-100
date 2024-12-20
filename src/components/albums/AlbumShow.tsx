@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchAlbum } from "@/actions";
 import AlbumTrackList from "./AlbumTrackList";
+import NewWindowSVG from "public/new-window.svg";
 
 export default async function AlbumShow({ albumId }: { albumId: string }) {
   const { results } = await fetchAlbum(albumId);
@@ -32,9 +33,10 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
           <Link
             href={albumMetadata.collectionViewUrl}
             target="_blank"
-            className="lg:text-3xl text-xl font-semibold underline text-center lg:text-left"
+            className="lg:text-3xl text-xl font-semibold underline text-center lg:text-left flex gap-1"
           >
             {albumMetadata.collectionName}
+            <NewWindowSVG width={24} height={24} />
           </Link>
           <span className="text-red-500 font-semibold text-center">
             {albumMetadata.artistName}
