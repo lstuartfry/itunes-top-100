@@ -38,7 +38,7 @@ export default function AlbumTrackList({
 }: {
   tracks: AlbumTrackType[];
 }) {
-  const { audioRef, audioSource, toggleTrackPreview } = useAudio();
+  const { audioRef, audioSource, isPaused, toggleTrackPreview } = useAudio();
 
   const renderTracks = useMemo(() => {
     return tracks.map((track, index) => {
@@ -47,10 +47,10 @@ export default function AlbumTrackList({
         <motion.div
           key={track.trackId}
           variants={item}
-          className={`flex hover:shadow-md hover:bg-gray-300 group py-3 even:bg-gray-300/50 ${
+          className={`flex hover:shadow-md group py-3 ${
             isActiveTrack
               ? "bg-red-500 text-white hover:bg-red-600"
-              : "hover:bg-gray-300"
+              : "even:bg-gray-300/50 hover:bg-gray-300"
           }`}
         >
           <div className="w-12 flex justify-center">
@@ -60,10 +60,16 @@ export default function AlbumTrackList({
               }`}
               onClick={() => toggleTrackPreview(track.previewUrl)}
             >
-              {isActiveTrack ? (
+              {isActiveTrack && !isPaused ? (
                 <PauseSVG className="text-white" width={24} height={24} />
               ) : (
-                <PlaySVG width={24} height={24} />
+                <PlaySVG
+                  className={
+                    isActiveTrack && isPaused ? "text-white" : "text-black"
+                  }
+                  width={24}
+                  height={24}
+                />
               )}
             </button>
             <span
@@ -78,7 +84,7 @@ export default function AlbumTrackList({
         </motion.div>
       );
     });
-  }, [audioSource, toggleTrackPreview, tracks]);
+  }, [audioSource, isPaused, toggleTrackPreview, tracks]);
 
   return (
     <>
