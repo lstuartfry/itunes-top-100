@@ -5,6 +5,7 @@ import { type Top100ResponseData } from "@/actions";
 import { debounce } from "@/utils";
 import AlbumListItem from "./AlbumListItem";
 import Search from "../search/Search";
+import FavoriteButton from "../favorite/button";
 
 type Props = {
   data: Top100ResponseData;
@@ -40,7 +41,15 @@ export default function FilteredAlbumList({ data }: Props) {
             }
           })
           .map((album, index) => (
-            <AlbumListItem key={album.id.label} album={album} index={index} />
+            <div
+              key={album.id.attributes["im:id"]}
+              className="flex items-center gap-2"
+            >
+              <FavoriteButton id={album.id.attributes["im:id"]} />
+              <div className="grow">
+                <AlbumListItem album={album} index={index} />
+              </div>
+            </div>
           ))}
       </ol>
     );
