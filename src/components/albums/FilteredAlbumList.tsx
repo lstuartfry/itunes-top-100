@@ -6,6 +6,8 @@ import { debounce } from "@/utils";
 import AlbumListItem from "./AlbumListItem";
 import Search from "../search/Search";
 import FavoriteButton from "../favorite/button";
+import useFavorites from "@/hooks/useFavorites";
+import Toggle from "../favorite/toggle";
 
 type Props = {
   data: Top100ResponseData;
@@ -17,6 +19,8 @@ type Props = {
 export default function FilteredAlbumList({ data }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchEntity, setSearchEntity] = useState("artist");
+  const [showFavorites, setShowFavorites] = useState(false);
+  const { favoriteAlbums } = useFavorites();
 
   const onSearchTermChange = debounce((value: string) => {
     const valueToLowerCase = value.toLowerCase();
@@ -31,6 +35,13 @@ export default function FilteredAlbumList({ data }: Props) {
     return (
       <ol className="flex flex-col lg:w-3xl">
         {data.feed.entry
+          .filter(album => {
+            if (showFavorites) {
+              return favoriteAlbums.includes(album.id.attributes["im:id"])
+            } else {
+              return album;
+            }
+          })
           .filter((album) => {
             if (searchEntity === "artist") {
               return album["im:artist"].label
@@ -53,7 +64,7 @@ export default function FilteredAlbumList({ data }: Props) {
           ))}
       </ol>
     );
-  }, [data.feed.entry, searchEntity, searchTerm]);
+  }, [data.feed.entry, favoriteAlbums, searchEntity, searchTerm, showFavorites]);
 
   return (
     <>
@@ -64,6 +75,7 @@ export default function FilteredAlbumList({ data }: Props) {
           searchEntity={searchEntity}
         />
       </div>
+      <Toggle enabled={showFavorites} onChange={() => setShowFavorites(!showFavorites)} />
       {filteredAlbums}
     </>
   );
