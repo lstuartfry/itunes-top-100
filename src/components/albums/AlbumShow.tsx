@@ -4,6 +4,7 @@ import Image from "next/image";
 import { fetchAlbum } from "@/actions";
 import AlbumTrackList from "./AlbumTrackList";
 import NewWindowSVG from "public/new-window.svg";
+import FavoriteButton from "../favorite/button";
 
 export default async function AlbumShow({ albumId }: { albumId: string }) {
   const { results } = await fetchAlbum(albumId);
@@ -14,12 +15,13 @@ export default async function AlbumShow({ albumId }: { albumId: string }) {
   // ex: January 1st, 2025
   const formattedReleaseDate = format(
     new Date(albumMetadata.releaseDate),
-    "LLLL do, yyyy"
+    "LLLL do, yyyy",
   );
 
   return (
     <div className="lg:w-4/5">
       <div className="flex flex-col lg:flex-row items-center gap-6">
+        <FavoriteButton id={albumId} />
         <Image
           src={albumMetadata.artworkUrl100}
           height={200}

@@ -5,6 +5,9 @@ import { type Top100ResponseData } from "@/actions";
 import { debounce } from "@/utils";
 import AlbumListItem from "./AlbumListItem";
 import Search from "../search/Search";
+import FavoriteButton from "../favorite/button";
+import useFavorites from "@/hooks/useFavorites";
+import Toggle from "../favorite/toggle";
 
 type Props = {
   data: Top100ResponseData;
@@ -16,6 +19,8 @@ type Props = {
 export default function FilteredAlbumList({ data }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchEntity, setSearchEntity] = useState("artist");
+  const [showFavorites, setShowFavorites] = useState(false);
+  const { favoriteAlbums } = useFavorites();
 
   const onSearchTermChange = debounce((value: string) => {
     const valueToLowerCase = value.toLowerCase();
@@ -31,6 +36,13 @@ export default function FilteredAlbumList({ data }: Props) {
       <ol className="flex flex-col lg:w-3xl">
         {data.feed.entry
           .filter((album) => {
+            if (showFavorites) {
+              return favoriteAlbums.includes(album.id.attributes["im:id"]);
+            } else {
+              return album;
+            }
+          })
+          .filter((album) => {
             if (searchEntity === "artist") {
               return album["im:artist"].label
                 .toLowerCase()
@@ -40,11 +52,25 @@ export default function FilteredAlbumList({ data }: Props) {
             }
           })
           .map((album, index) => (
-            <AlbumListItem key={album.id.label} album={album} index={index} />
+            <div
+              key={album.id.attributes["im:id"]}
+              className="flex items-center gap-2"
+            >
+              <FavoriteButton id={album.id.attributes["im:id"]} />
+              <div className="grow">
+                <AlbumListItem album={album} index={index} />
+              </div>
+            </div>
           ))}
       </ol>
     );
-  }, [data.feed.entry, searchEntity, searchTerm]);
+  }, [
+    data.feed.entry,
+    favoriteAlbums,
+    searchEntity,
+    searchTerm,
+    showFavorites,
+  ]);
 
   return (
     <>
@@ -55,6 +81,10 @@ export default function FilteredAlbumList({ data }: Props) {
           searchEntity={searchEntity}
         />
       </div>
+      <Toggle
+        enabled={showFavorites}
+        onChange={() => setShowFavorites(!showFavorites)}
+      />
       {filteredAlbums}
     </>
   );
