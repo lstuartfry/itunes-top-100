@@ -35,9 +35,9 @@ export default function FilteredAlbumList({ data }: Props) {
     return (
       <ol className="flex flex-col lg:w-3xl">
         {data.feed.entry
-          .filter(album => {
+          .filter((album) => {
             if (showFavorites) {
-              return favoriteAlbums.includes(album.id.attributes["im:id"])
+              return favoriteAlbums.includes(album.id.attributes["im:id"]);
             } else {
               return album;
             }
@@ -64,7 +64,13 @@ export default function FilteredAlbumList({ data }: Props) {
           ))}
       </ol>
     );
-  }, [data.feed.entry, favoriteAlbums, searchEntity, searchTerm, showFavorites]);
+  }, [
+    data.feed.entry,
+    favoriteAlbums,
+    searchEntity,
+    searchTerm,
+    showFavorites,
+  ]);
 
   return (
     <>
@@ -75,7 +81,10 @@ export default function FilteredAlbumList({ data }: Props) {
           searchEntity={searchEntity}
         />
       </div>
-      <Toggle enabled={showFavorites} onChange={() => setShowFavorites(!showFavorites)} />
+      <Toggle
+        enabled={showFavorites}
+        onChange={() => setShowFavorites(!showFavorites)}
+      />
       {filteredAlbums}
     </>
   );
